@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فروشگاه محصولات | فتولب شاپ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #FF6B35, #FF8E53);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .main-search {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .action-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .cart-count {
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb-list {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .breadcrumb-list li {
+            color: #666;
+        }
+        
+        .breadcrumb-list a {
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            padding: 30px 0;
+        }
+        
+        /* Sidebar Filters */
+        .filters-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 0;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .filters-header {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .filters-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .clear-filters {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+        
+        .filter-group {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+        
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .filter-option input[type="checkbox"],
+        .filter-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #FF6B35;
+        }
+        
+        .filter-option label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .filter-count {
+            color: #999;
+            font-size: 0.85rem;
+        }
+        
+        .price-range {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .price-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .price-input:focus {
+            border-color: #FF6B35;
+            outline: none;
+        }
+        
+        /* Products Area */
+        .products-area {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .products-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .products-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .results-count {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 5px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        
+        .view-btn {
+            padding: 8px 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn.active {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .sort-dropdown {
+            padding: 10px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            min-width: 180px;
+        }
+        
+        .sort-dropdown:focus {
+            border-color: #FF6B35;
+            outline: none;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            padding: 30px;
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            transition: all 0.3s ease;
+        }
+        
+        .products-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+        
+        .product-card {
+            background: #fafafa;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #FF6B35;
+        }
+        
+        .product-image {
+            height: 220px;
+            background: linear-gradient(135deg, #FF6B35, #FF8E53);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .product-badge.sale {
+            background: #dc3545;
+        }
+        
+        .product-badge.new {
+            background: #007bff;
+        }
+        
+        .quick-actions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover .quick-actions {
+            opacity: 1;
+        }
+        
+        .quick-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-category {
+            color: #FF6B35;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .stars {
+            color: #ffd700;
+            font-size: 0.9rem;
+        }
+        
+        .rating-count {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #FF6B35;
+        }
+        
+        .original-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .discount {
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .add-to-cart {
+            flex: 1;
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart:hover {
+            background: #FF8E53;
+            transform: translateY(-2px);
+        }
+        
+        .add-to-cart:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .wishlist-btn {
+            width: 45px;
+            height: 45px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wishlist-btn:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+        
+        .wishlist-btn.active {
+            background: #dc3545;
+        }
+        
+        /* List View Styles */
+        .products-grid.list-view .product-card {
+            display: flex;
+            height: 200px;
+        }
+        
+        .products-grid.list-view .product-image {
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+        
+        .products-grid.list-view .product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .products-grid.list-view .product-description {
+            -webkit-line-clamp: 3;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #eee;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover,
+        .page-btn.active {
+            border-color: #FF6B35;
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            color: #666;
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .empty-description {
+            margin-bottom: 20px;
+        }
+        
+        /* Quick Order Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #FF6B35, #FF8E53);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .order-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #FF6B35;
+            outline: none;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #FF6B35;
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #FF6B35;
+        }
+        
+        .qty-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .qty-input {
+            width: 60px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .order-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .order-btn {
+            width: 100%;
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .order-btn:hover {
+            background: #FF8E53;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .products-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .products-info {
+                justify-content: space-between;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .products-grid.list-view .product-card {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .products-grid.list-view .product-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #FF6B35;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Active Filters */
+        .active-filters {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tag {
+            background: #FF6B35;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-tag-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">🖼️ فتولب شاپ</a>
+                <div class="search-container">
+                    <input type="text" class="main-search" id="mainSearch" placeholder="جستجو در محصولات...">
+                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="action-btn">👤 حساب کاربری</a>
+                    <button class="action-btn" onclick="toggleCart()">
+                        🛒 سبد خرید
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li><a href="#">خانه</a></li>
+                <li>></li>
+                <li>فروشگاه</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-layout">
+            <!-- Filters Sidebar -->
+            <aside class="filters-sidebar">
+                <div class="filters-header">
+                    <span class="filters-title">فیلتر محصولات</span>
+                    <button class="clear-filters" onclick="clearAllFilters()">پاک کردن همه</button>
+                </div>
+                
+                <!-- Categories Filter -->
+                <div class="filter-group">
+                    <h3 class="filter-title">دسته‌بندی</h3>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-print" value="print" onchange="applyFilters()">
+                        <label for="cat-print">چاپ عکس</label>
+                        <span class="filter-count">(24)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-frames" value="frames" onchange="applyFilters()">
+                        <label for="cat-frames">قاب عکس</label>
+                        <span class="filter-count">(18)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-mugs" value="mugs" onchange="applyFilters()">
+                        <label for="cat-mugs">ماگ و لیوان</label>
+                        <span class="filter-count">(15)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-calendar" value="calendar" onchange="applyFilters()">
+                        <label for="cat-calendar">تقویم</label>
+                        <span class="filter-count">(8)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-canvas" value="canvas" onchange="applyFilters()">
+                        <label for="cat-canvas">بوم نقاشی</label>
+                        <span class="filter-count">(12)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-gifts" value="gifts" onchange="applyFilters()">
+                        <label for="cat-gifts">هدایا</label>
+                        <span class="filter-count">(20)</span>
+                    </div>
+                </div>
+                
+                <!-- Price Range Filter -->
+                <div class="filter-group">
+                    <h3 class="filter-title">محدوده قیمت (تومان)</h3>
+                    <div class="price-range">
+                        <input type="number" class="price-input" id="minPrice" placeholder="کمترین" onchange="applyFilters()">
+                        <input type="number" class="price-input" id="maxPrice" placeholder="بیشترین" onchange="applyFilters()">
+                    </div>
+                </div>
+                
+                <!-- Size Filter -->
+                <div class="filter-group">
+                    <h3 class="filter-title">سایز</h3>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-small" value="small" onchange="applyFilters()">
+                        <label for="size-small">کوچک</label>
+                        <span class="filter-count">(25)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-medium" value="medium" onchange="applyFilters()">
+                        <label for="size-medium">متوسط</label>
+                        <span class="filter-count">(35)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-large" value="large" onchange="applyFilters()">
+                        <label for="size-large">بزرگ</label>
+                        <span class="filter-count">(20)</span>
+                    </div>
+                </div>
+                
+                <!-- Rating Filter -->
+                <div class="filter-group">
+                    <h3 class="filter-title">امتیاز</h3>
+                    <div class="filter-option">
+                        <input type="radio" name="rating" id="rating-5" value="5" onchange="applyFilters()">
+                        <label for="rating-5">⭐⭐⭐⭐⭐</label>
+                        <span class="filter-count">(12)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="rating" id="rating-4" value="4" onchange="applyFilters()">
+                        <label for="rating-4">⭐⭐⭐⭐ و بالاتر</label>
+                        <span class="filter-count">(28)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="rating" id="rating-3" value="3" onchange="applyFilters()">
+                        <label for="rating-3">⭐⭐⭐ و بالاتر</label>
+                        <span class="filter-count">(45)</span>
+                    </div>
+                </div>
+                
+                <!-- Availability Filter -->
+                <div class="filter-group">
+                    <h3 class="filter-title">موجودی</h3>
+                    <div class="filter-option">
+                        <input type="checkbox" id="available" value="available" onchange="applyFilters()">
+                        <label for="available">موجود</label>
+                        <span class="filter-count">(67)</span>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="on-sale" value="on-sale" onchange="applyFilters()">
+                        <label for="on-sale">تخفیف‌دار</label>
+                        <span class="filter-count">(23)</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Products Area -->
+            <main class="products-area">
+                <!-- Active Filters -->
+                <div class="active-filters" id="activeFilters" style="display: none;">
+                    <div class="filter-tags" id="filterTags"></div>
+                </div>
+                
+                <!-- Products Header -->
+                <div class="products-header">
+                    <div class="products
